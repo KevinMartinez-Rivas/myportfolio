@@ -1,3 +1,6 @@
+// Prefix a /public path with the site base (needed on GitHub Pages).
+export const asset = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
+
 // Content taken from "CV Kevin Martinez - EN.pdf" and the LinkedIn notes in Desktop/CV.
 export const profile = {
   name: 'Kevin Martínez',
@@ -8,7 +11,7 @@ export const profile = {
   email: 'kevmartinez.per@gmail.com',
   linkedin: 'https://www.linkedin.com/in/kevin-mart%C3%ADnez-dev/',
   github: 'https://github.com/KevinMartinez-Rivas',
-  cv: '/Kevin-Martinez-CV.pdf',
+  cv: asset('Kevin-Martinez-CV.pdf'),
   summary:
     'Data Engineer with 3 years of experience in data integration, dimensional modeling and Business Intelligence. I design ETL processes, OLAP cubes and semantic layers that support dashboards with consistent metrics. I complement this profile with fullstack web development and AI-driven automation.',
 };

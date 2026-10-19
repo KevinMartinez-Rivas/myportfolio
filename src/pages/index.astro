@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Section from '../components/Section.astro';
 import SkillIcon from '../components/SkillIcon.astro';
-import { profile, stats, experience, projects, skills, education, psnap } from '../data/profile';
+import { profile, stats, experience, projects, skills, education, psnap, asset } from '../data/profile';
 ---
 
 <Layout>
@@ -66,7 +66,7 @@ import { profile, stats, experience, projects, skills, education, psnap } from '
       <div class="Psnap">
         <div class="Psnap-info">
           <p class="Psnap-tagline reveal">
-            <img src="/psnap/logo-icon.png" alt="" width="44" height="44" />
+            <img src={asset('psnap/logo-icon.png')} alt="" width="44" height="44" />
             {psnap.tagline}
           </p>
           <p class="Psnap-desc reveal">{psnap.description}</p>
@@ -83,8 +83,8 @@ import { profile, stats, experience, projects, skills, education, psnap } from '
           </div>
         </div>
         <div class="Psnap-shots">
-          <img class="reveal" src="/psnap/hero-editor-en.webp" alt="The PSnap editor with an annotated screenshot" loading="lazy" />
-          <img class="reveal" src="/psnap/hero-panel-en.webp" alt="The PSnap side panel with the Start capture button" loading="lazy" />
+          <img class="reveal" src={asset('psnap/hero-editor-en.webp')} alt="The PSnap editor with an annotated screenshot" loading="lazy" />
+          <img class="reveal" src={asset('psnap/hero-panel-en.webp')} alt="The PSnap side panel with the Start capture button" loading="lazy" />
         </div>
       </div>
     </Section>
