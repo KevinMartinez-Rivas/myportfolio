@@ -1,0 +1,17 @@
+---
+interface Props {
+  id: string;
+  index: string;
+  title: string;
+  dark?: boolean;
+}
+const { id, index, title, dark = false } = Astro.props;
+---
+
+<section id={id} class:list={['Section', { dark }]}>
+  <div class="Wrap">
+    <p class="Section-index reveal">{index}</p>
+    <h2 class="Section-title reveal">{title}</h2>
+    <slot />
+  </div>
+</section>

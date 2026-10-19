@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Section from '../components/Section.astro';
+import SkillIcon from '../components/SkillIcon.astro';
+import { profile, stats, experience, projects, skills, education, psnap } from '../data/profile';
+---
+
+<Layout>
+  <Header />
+
+  <main>
+    <Section id="about" index="01" title="About me">
+      <div class="About">
+        <p class="About-summary reveal">{profile.summary}</p>
+        <ul class="Stats">
+          {
+            stats.map((s) => (
+              <li class="Stat reveal">
+                <span class="Stat-value">{s.value}</span>
+                <span class="Stat-label">{s.label}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="Cta reveal">
+          <a class="Btn Btn-solid" href={profile.cv} target="_blank" rel="noopener">Download CV</a>
+          <a class="Btn" href="#contact">Get in touch</a>
+        </div>
+      </div>
+    </Section>
+
+    <Section id="experience" index="02" title="Experience" dark>
+      <article class="Job reveal">
+        <header class="Job-head">
+          <div>
+            <h3>{experience.title}</h3>
+            <p class="Job-company">{experience.company} · {experience.mode}</p>
+          </div>
+          <p class="Job-meta">{experience.period}<br />{experience.location}</p>
+        </header>
+        <ul class="Job-list">
+          {experience.bullets.map((b) => <li>{b}</li>)}
+        </ul>
+      </article>
+    </Section>
+
+    <Section id="projects" index="03" title="Selected projects">
+      <div class="Cards">
+        {
+          projects.map((p) => (
+            <article class="Card reveal">
+              <span class="Tag">{p.tag}</span>
+              <h3>{p.title}</h3>
+              <p>{p.description}</p>
+              <ul>
+                {p.points.map((pt) => <li>{pt}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section id="psnap" index="04" title="PSnap" dark>
+      <div class="Psnap">
+        <div class="Psnap-info">
+          <p class="Psnap-tagline reveal">
+            <img src="/psnap/logo-icon.png" alt="" width="44" height="44" />
+            {psnap.tagline}
+          </p>
+          <p class="Psnap-desc reveal">{psnap.description}</p>
+          <ul class="Psnap-features reveal">
+            {psnap.features.map((f) => <li>{f}</li>)}
+          </ul>
+          <ul class="Stack-icons reveal" aria-label="Technologies used">
+            {psnap.stack.map((t) => <li title={t.name} aria-label={t.name}><SkillIcon icon={t.icon} glyph={t.glyph} /></li>)}
+          </ul>
+          <div class="Cta reveal">
+            {psnap.links.map((l) => (
+              <a class:list={['Btn', 'Btn-light']} href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>
+            ))}
+          </div>
+        </div>
+        <div class="Psnap-shots">
+          <img class="reveal" src="/psnap/hero-editor-en.webp" alt="The PSnap editor with an annotated screenshot" loading="lazy" />
+          <img class="reveal" src="/psnap/hero-panel-en.webp" alt="The PSnap side panel with the Start capture button" loading="lazy" />
+        </div>
+      </div>
+    </Section>
+
+    <Section id="skills" index="05" title="Technical skills">
+      <div class="Carousel" data-carousel>
+        <div class="Carousel-tabs" role="tablist" aria-label="Skill categories">
+          {
+            skills.map((g, i) => (
+              <button class="Carousel-tab" role="tab" type="button" aria-selected={i === 0} data-index={i}>
+                <SkillIcon glyph={g.glyph} />
+                <span>{g.group}</span>
+              </button>
+            ))
+          }
+        </div>
+
+        <div class="Carousel-viewport">
+          <div class="Carousel-track">
+            {
+              skills.map((g, i) => (
+                <article class="Carousel-slide" role="tabpanel" aria-label={g.group} data-index={i}>
+                  <header>
+                    <p class="Carousel-count">{String(i + 1).padStart(2, '0')} / {String(skills.length).padStart(2, '0')}</p>
+                    <h3>{g.group}</h3>
+                    <p class="Carousel-blurb">{g.blurb}</p>
+                  </header>
+                  <ul class="Skill-grid">
+                    {
+                      g.items.map((it) => (
+                        <li class="Skill-tile">
+                          <SkillIcon icon={it.icon} glyph={it.glyph} />
+                          <span>{it.name}</span>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="Carousel-controls">
+          <div class="Carousel-dots">
+            {skills.map((_, i) => <span class="Carousel-dot" data-index={i}></span>)}
+          </div>
+        </div>
+      </div>
+    </Section>
+
+    <Section id="education" index="06" title="Education">
+      <ol class="Timeline">
+        {
+          education.map((e) => (
+            <li class="Timeline-item reveal">
+              <p class="Timeline-period">{e.period}</p>
+              <h3>{e.title}</h3>
+              <p class="Timeline-school">{e.school}</p>
+              {e.note && <p class="Timeline-note">{e.note}</p>}
+            </li>
+          ))
+        }
+      </ol>
+    </Section>
+
+    <Section id="contact" index="07" title="Let's talk" dark>
+      <div class="Contact reveal">
+        <p>Open to AI data work, QA of AI-generated systems, data engineering and fullstack projects.</p>
+        <a class="Contact-mail" href={`mailto:${profile.email}`}>{profile.email}</a>
+        <div class="Cta">
+          <a class="Btn Btn-light" href={profile.github} target="_blank" rel="noopener">GitHub</a>
+          <a class="Btn Btn-light" href={profile.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+          <a class="Btn Btn-light" href={profile.cv} target="_blank" rel="noopener">Download CV</a>
+        </div>
+      </div>
+    </Section>
+  </main>
+
+  <footer class="Footer">
+    <p>© {new Date().getFullYear()} {profile.fullName} · {profile.location}</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+      const track = root.querySelector<HTMLElement>('.Carousel-track')!;
+      const slides = [...root.querySelectorAll<HTMLElement>('.Carousel-slide')];
+      const tabs = [...root.querySelectorAll<HTMLElement>('.Carousel-tab')];
+      const dots = [...root.querySelectorAll<HTMLElement>('.Carousel-dot')];
+      let i = 0;
+
+      function go(n: number) {
+        i = (n + slides.length) % slides.length;
+        track.style.transform = `translateX(${-i * 100}%)`;
+        slides.forEach((s, k) => s.toggleAttribute('inert', k !== i));
+        tabs.forEach((t, k) => {
+          t.setAttribute('aria-selected', String(k === i));
+          t.classList.toggle('active', k === i);
+        });
+        dots.forEach((d, k) => d.classList.toggle('active', k === i));
+        const bar = tabs[i].parentElement!;
+        bar.scrollTo({ left: tabs[i].offsetLeft - (bar.clientWidth - tabs[i].offsetWidth) / 2, behavior: 'smooth' });
+      }
+
+      tabs.forEach((t, k) => t.addEventListener('click', () => go(k)));
+      dots.forEach((d, k) => d.addEventListener('click', () => go(k)));
+
+      // swipe
+      let x0: number | null = null;
+      root.addEventListener('pointerdown', (e) => (x0 = e.clientX));
+      root.addEventListener('pointerup', (e) => {
+        if (x0 !== null && Math.abs(e.clientX - x0) > 50) go(i + (e.clientX < x0 ? 1 : -1));
+        x0 = null;
+      });
+
+      go(0);
+    });
+
+    const els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              io.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.12 }
+      );
+      document.documentElement.classList.add('js');
+      els.forEach((el) => io.observe(el));
+    }
+  </script>
+</Layout>

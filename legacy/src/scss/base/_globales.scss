@@ -1,0 +1,81 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    font-family: $FuentePrincipal;
+    margin: 0 auto;
+    overflow: overlay;
+}
+
+body::-webkit-scrollbar {
+    background-color: transparent;
+    width: 0.5rem;
+
+    @include Tablet {
+        width: 0.8rem;
+    }
+}
+
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.01);
+    background-color: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: $Negro;
+}
+
+p {
+    color: $Negro;
+    font-size: 1.6rem;
+}
+
+a {
+    text-decoration: none;
+}
+
+img,
+picture {
+    width: 100%;
+    display: block;
+}
+
+h1, h2, h3 {
+    font-weight: 300;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3.8rem;
+}
+h2 {
+    font-size: 3.4rem;
+}
+h3 {
+    font-size: 3rem;
+}
+h4 {
+    font-size: 2.6rem;
+}
+
+button {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+//Utilidades
+.Contenedor {
+    width: 100%;
+    max-width: 150rem;
+    height: 100vh;
+    margin: 0 auto;
+}

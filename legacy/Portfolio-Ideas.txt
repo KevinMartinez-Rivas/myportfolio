@@ -1,0 +1,8 @@
+IDEAS PORTFOLIO:
+
+- Gato (Dots) en medio del header
+. Tiene 3 estados: escondido, cabeza fuera, cuerpo fuera.
+. El gato funciona como asistente (todo lo que diga se tiene que traducir).
+. El gato puede agarrar el cursor y luego de 2 seg lo tira
+
+- 

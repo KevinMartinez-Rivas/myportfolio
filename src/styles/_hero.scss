@@ -1,0 +1,273 @@
+$FuentePrincipal: 'Emberly-ExtraBold';
+$Negro: #000000;
+$Blanco: #ffffff;
+
+.Contenedor {
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.Header {
+    width: 100%;
+    background-color: $Blanco;
+
+    .Contenedor {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.Contenido-header {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+
+        text {
+            transform: matrix(1, 0, 0, 1, 378.667, 435.055);
+        }
+    }
+
+    .Info-Personal {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin-right: 1rem;
+        color: $Negro;
+        font-weight: 500;
+        font-size: 1.6rem;
+        animation: animate-infoper 1.5s ease forwards;
+        user-select: none; 
+    }
+}
+
+@keyframes animate-infoper {
+    0%
+    {
+        right: -32rem;
+    }
+
+    100%
+    {
+        right: 0;
+    }
+}
+
+.Heding-header{
+    width: 100%;
+    height: 6rem;
+    max-height: 6rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+        font-size: 3rem;
+        font-family: $FuentePrincipal;
+        font-weight: bold;
+        color: $Negro;
+        cursor: pointer;
+    }
+}
+
+.Content-Button-Menu {
+    position: relative;
+    z-index: 12;
+    top: 0;
+    height: 3rem;
+    width: 3rem;
+}
+
+.Button-Menu {
+    display: grid;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    cursor: pointer;
+    animation: animate-MenuB 1.5s ease forwards;
+
+    .top-line{
+        position: relative;
+        width: 1.3rem;
+        height: 0.38rem;
+        margin-left: 0.4rem;
+        background-color: $Negro;
+        border-radius: 12px;
+        transition: all 0.5s ease;
+        transform: rotate(0deg);
+        transform-origin: left;
+    }
+
+    .mid-line{
+        position: relative;
+        width: 3rem;
+        height: 0.38rem;
+        background-color: $Negro;
+        border-radius: 12px;
+        transition: all 0.5s ease;
+        transform: rotate(0deg);
+        margin-left: 0.1rem;
+        z-index: 1;
+        box-shadow: 0 0 0 1.2px $Blanco;
+    }
+
+    .bot-line{
+        position: relative;
+        width: 1.3rem;
+        height: 0.38rem;
+        background-color: $Negro;
+        border-radius: 12px;
+        margin-left: 1.5rem;
+        transition: all 0.5s ease;
+        transform: rotate(0deg);
+        transform-origin: right;
+    }
+
+    .top-line.active {
+        transform: rotate(45deg);
+    }
+
+    .mid-line.active {
+        width: 2.6rem;
+        transform: rotate(-45deg);
+    }
+
+    .bot-line.active {
+        margin-left: 1rem;
+        transform: rotate(45deg);
+    }
+}
+
+@keyframes animate-MenuB {
+    0%
+    {
+        left: -5rem;
+    }
+    100% 
+    {
+        left: 0;
+    }
+}
+
+.Redes {
+    display: flex;
+    list-style: none;
+
+    .Lista-redes {
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: -0.90rem; //Cuando sea menu desplegable 3.5rem
+        right: 1rem; //Cuando sea menu desplegable 1.85rem
+        animation: animate-redes 1.5s ease forwards;
+    }
+
+    .Lista-redes a {
+        position: relative;
+        color: $Negro;
+        font-size: 3rem;
+
+        &:hover {
+            &::before {
+                content: '.';
+                position: absolute;
+                top: -4rem;
+                font-size: 5.5rem;
+                animation: animate-HoverRedes 0.5s ease forwards;
+            }
+        }
+    }
+
+    img {
+        width: 5.5rem;
+        cursor: pointer;
+    }
+}
+
+@keyframes animate-redes {
+    0%
+    {
+        top: -25rem;
+    }
+
+    100%
+    {
+        top: -0.90rem;
+    }
+}
+
+@keyframes animate-HoverRedes {
+    0%
+    {
+        right: 5.75rem;
+        opacity: 0;
+    }
+    100%
+    {
+        right: 3.75rem;
+        opacity: 1;
+    }
+}
+
+.Sub-titulo {
+    fill: $Negro;
+    font-size: 10rem;
+    stroke: none;
+    stroke-width: 1px;
+    stroke-miterlimit: 10;
+    font-family:'Emberly-ExtraBold';
+    user-select: none; 
+}
+
+.Titulo, .Titulo1 {
+    fill: none;
+    font-size: 34rem;
+    stroke: $Negro;
+    stroke-width: 0.3rem;
+    stroke-miterlimit: 10;
+    font-family:'Emberly-ExtraBold';
+    user-select: none; 
+}
+
+.Titulo {
+    stroke-dasharray: 1600;
+    stroke-dashoffset: 1600;
+    animation: animate-titulo 2.5s ease forwards;
+}
+
+.Titulo1 {
+    stroke-dasharray: 2100;
+    stroke-dashoffset: 2100;
+    animation: animate-titulo1 2.5s ease forwards;
+}
+
+@keyframes animate-titulo {
+    0% {
+        stroke-dashoffset: 1600;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes animate-titulo1 {
+    0% {
+        stroke-dashoffset: 2100;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}

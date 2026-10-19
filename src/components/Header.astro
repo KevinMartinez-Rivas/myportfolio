@@ -1,0 +1,79 @@
+---
+import { profile } from '../data/profile';
+
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#psnap', label: 'PSnap' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#education', label: 'Education' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="Header" id="top">
+  <div class="Contenedor">
+    <div class="Contenido-header">
+      <div class="Heding-header">
+        <div class="Content-Button-Menu">
+          <button class="Button-Menu" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+            <div class="top-line"></div>
+            <div class="mid-line"></div>
+            <div class="bot-line"></div>
+          </button>
+        </div>
+
+        <div class="Redes">
+          <ul class="Lista-redes">
+            <a href={profile.linkedin} target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href={profile.github} target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href={`mailto:${profile.email}`} aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </ul>
+        </div>
+      </div>
+
+      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 1080" style="enable-background:new 0 0 1920 1080;" xml:space="preserve" role="img" aria-label="Hi I'm Kevin Martínez">
+        <text>
+          <tspan x="-275" y="0" class="Sub-titulo">Hi I'm</tspan>
+          <tspan x="0" y="0" class="Titulo">Kevin</tspan>
+          <tspan x="180" y="410.4" class="Titulo1">Martínez</tspan>
+        </text>
+      </svg>
+
+      <p class="Info-Personal">{profile.tagline}</p>
+
+      <a class="Scroll-hint" href="#about" aria-label="Learn more about me">
+        <svg viewBox="0 0 24 40" aria-hidden="true">
+          <path d="M12 2v30" />
+          <path d="m4 24 8 9 8-9" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <nav id="site-nav" class="Nav" aria-label="Main">
+    <button class="Nav-close" aria-label="Close menu">✕</button>
+    <ul>
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.Button-Menu');
+  const nav = document.getElementById('site-nav');
+
+  function setOpen(open: boolean) {
+    btn?.querySelectorAll('div').forEach((s) => s.classList.toggle('active', open));
+    nav?.classList.toggle('open', open);
+    btn?.setAttribute('aria-expanded', String(open));
+    btn?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.classList.toggle('no-scroll', open);
+  }
+
+  nav?.querySelector('.Nav-close')?.addEventListener('click', () => setOpen(false));
+  btn?.addEventListener('click', () => setOpen(!nav?.classList.contains('open')));
+  nav?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+</script>

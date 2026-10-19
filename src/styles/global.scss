@@ -1,0 +1,526 @@
+@use 'normalize';
+@use 'hero';
+
+// ---------- Variables (palette carried over from the original portfolio) ----------
+$FuenteTitulo: 'Inter', system-ui, sans-serif;
+$FuenteTexto: 'Inter', system-ui, sans-serif;
+
+$Negro: #000000;
+$Blanco: #ffffff;
+$Gris: #5c5c66;
+$GrisClaro: #e8e8ec;
+$Acento: #eab73f;
+$Crema: #d6cb9e;
+
+$tablet: 768px;
+$desktop: 1024px;
+
+@mixin Tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+@mixin Escritorio {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+// ---------- Base ----------
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  font-family: $FuenteTexto;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: $Negro;
+  background: $Blanco;
+  &.no-scroll {
+    overflow: hidden;
+  }
+}
+h1, h2, h3 {
+  font-family: $FuenteTitulo;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+main p, footer p, .Nav p {
+  margin: 0;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+main ul, main ol, footer ul, .Nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body::-webkit-scrollbar { background-color: transparent; width: 0.5rem; @include Tablet { width: 0.8rem; } }
+body::-webkit-scrollbar-track { background-color: transparent; }
+body::-webkit-scrollbar-thumb { background-color: $Negro; }
+
+.Header {
+  font-family: 'Emberly-ExtraBold';
+  font-size: 1.6rem;
+  line-height: 1.8;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+section[id] {
+  scroll-margin-top: 0;
+}
+
+// ---------- Scroll hint (hero) ----------
+.Scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: $Negro;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(-50%);
+  animation: hint-in 0.8s ease 3s forwards;
+
+  svg {
+    width: 2.2rem;
+    height: 4rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: hint-bounce 1.8s ease-in-out 3.8s infinite;
+  }
+  &:hover svg { animation-play-state: paused; }
+}
+@keyframes hint-in { to { opacity: 1; } }
+@keyframes hint-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(1rem); }
+}
+
+// ---------- Overlay nav ----------
+.Nav {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $Blanco;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s;
+  &.open { opacity: 1; visibility: visible; }
+  ul { display: grid; gap: 1.2rem; text-align: center; }
+  a {
+    font: 800 4.2rem $FuenteTitulo;
+    letter-spacing: -0.02em;
+    color: $Negro;
+    transition: color 0.25s ease;
+    &:hover { color: $Acento; }
+    @include Tablet { font-size: 6.4rem; }
+  }
+}
+.Nav-close {
+  position: absolute;
+  top: 2rem;
+  right: 2.4rem;
+  width: 4.4rem;
+  height: 4.4rem;
+  border: 1px solid $Negro;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+  &:hover { background: $Negro; color: $Blanco; }
+}
+
+// ---------- Sections ----------
+.Section {
+  padding: 8rem 0;
+  background: $Blanco;
+  color: $Negro;
+  @include Tablet { padding: 12rem 0; }
+
+  &.dark {
+    background: $Negro;
+    color: $Blanco;
+  }
+}
+.Wrap {
+  width: min(100% - 4rem, 112rem);
+  margin: 0 auto;
+}
+.Section-index {
+  font-family: $FuenteTitulo;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+  color: $Acento;
+}
+.Section-title {
+  margin: 0.8rem 0 5rem;
+  font-size: clamp(3.4rem, 6vw, 6rem);
+  font-weight: 800;
+}
+
+// About
+.About-summary {
+  max-width: 78rem;
+  font-size: clamp(1.8rem, 2.4vw, 2.6rem);
+  line-height: 1.5;
+}
+.Stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+  margin: 5rem 0;
+  @include Tablet { grid-template-columns: repeat(4, 1fr); }
+}
+.Stat {
+  display: flex;
+  flex-direction: column;
+  padding: 2.4rem;
+  border: 1px solid $Negro;
+}
+.Stat-value {
+  font: 800 5.2rem/1 $FuenteTitulo;
+}
+.Stat-label {
+  margin-top: 0.6rem;
+  font-size: 1.4rem;
+  color: $Gris;
+}
+
+// Buttons
+.Cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.Btn {
+  display: inline-block;
+  padding: 1.3rem 2.6rem;
+  border: 1px solid currentColor;
+  font-weight: 600;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  &:hover { transform: translateY(-2px); }
+}
+.Btn-solid {
+  background: $Negro;
+  color: $Blanco;
+  border-color: $Negro;
+  &:hover { background: $Acento; color: $Negro; border-color: $Acento; }
+}
+.Btn-light {
+  color: $Blanco;
+  &:hover { background: $Blanco; color: $Negro; }
+}
+
+// Experience
+.Job-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid rgba($Blanco, 0.25);
+  @include Tablet { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+  h3 { font-size: clamp(2.8rem, 4vw, 4rem); }
+}
+.Job-company { margin-top: 0.8rem; color: $Crema; font-size: 1.8rem; }
+.Job-meta { color: rgba($Blanco, 0.65); @include Tablet { text-align: right; } }
+.Job-list {
+  margin-top: 3rem;
+  display: grid;
+  gap: 1.4rem;
+  li {
+    position: relative;
+    padding-left: 2.6rem;
+    max-width: 90rem;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1.1rem;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 50%;
+      background: $Acento;
+    }
+  }
+}
+
+// Projects
+.Cards {
+  display: grid;
+  gap: 2rem;
+  @include Escritorio { grid-template-columns: repeat(3, 1fr); }
+}
+.Card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 3rem;
+  border: 1px solid $Negro;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  &:hover { transform: translate(-6px, -6px); box-shadow: 6px 6px 0 $Negro; }
+  h3 { font-size: 2.8rem; }
+  p { color: $Gris; }
+  ul { margin-top: auto; display: grid; gap: 0.6rem; font-weight: 500; }
+  li::before { content: '→ '; color: $Acento; font-weight: 700; }
+}
+.Tag {
+  align-self: flex-start;
+  padding: 0.3rem 1.2rem;
+  border-radius: 99px;
+  background: $Negro;
+  color: $Blanco;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+// PSnap
+.Psnap {
+  display: grid;
+  gap: 4rem;
+  @include Escritorio { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+.Psnap-info { display: grid; gap: 2.4rem; }
+.Psnap-tagline {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  font: 800 clamp(2.2rem, 3vw, 3rem) $FuenteTitulo;
+  img { width: 4.4rem; height: 4.4rem; border-radius: 1rem; }
+}
+.Psnap-desc { color: rgba($Blanco, 0.85); font-size: 1.8rem; }
+.Psnap-features {
+  display: grid;
+  gap: 1rem;
+  li {
+    position: relative;
+    padding-left: 2.4rem;
+    &::before { content: '→'; position: absolute; left: 0; color: $Acento; font-weight: 700; }
+  }
+}
+.Psnap-shots {
+  display: grid;
+  gap: 2rem;
+  img {
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba($Blanco, 0.3);
+    border-radius: 1rem;
+  }
+  @include Escritorio { position: sticky; top: 4rem; }
+}
+
+// PSnap stack (icons only)
+.Stack-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.2rem;
+  li {
+    display: flex;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    &:hover { opacity: 1; transform: translateY(-3px); }
+  }
+  .Ico { width: 3.2rem; height: 3.2rem; }
+}
+
+// Skills carousel
+.Ico {
+  display: block;
+  width: 3.6rem;
+  height: 3.6rem;
+  flex: none;
+}
+.Ico-brand {
+  background-color: currentColor;
+  -webkit-mask: var(--src) center / contain no-repeat;
+  mask: var(--src) center / contain no-repeat;
+}
+.Carousel { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.4rem; }
+.Carousel-tabs {
+  display: flex;
+  gap: 0.8rem;
+  overflow-x: auto;
+  padding-bottom: 0.6rem;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+.Carousel-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex: none;
+  padding: 0.9rem 1.8rem;
+  border: 1px solid $Negro;
+  border-radius: 99px;
+  background: transparent;
+  color: $Negro;
+  font: 600 1.4rem $FuenteTexto;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+  .Ico { width: 1.8rem; height: 1.8rem; }
+  &:hover { background: $GrisClaro; }
+  &.active { background: $Negro; color: $Blanco; }
+}
+.Carousel-viewport { overflow: hidden; }
+.Carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.Carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: grid;
+  gap: 3.2rem;
+  padding: 2rem 0;
+  @include Tablet { padding: 3rem 0; grid-template-columns: 1fr 1.6fr; align-items: center; }
+  h3 { font-size: clamp(3rem, 4.5vw, 4.4rem); }
+}
+.Carousel-count { font-size: 1.3rem; font-weight: 600; letter-spacing: 0.15em; color: $Acento; margin-bottom: 1rem !important; }
+.Carousel-blurb { margin-top: 1.2rem !important; color: $Gris; }
+.Skill-grid {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: repeat(2, 1fr);
+  @include Tablet { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+}
+.Skill-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  min-height: 12.5rem;
+  padding: 1.6rem 1rem;
+  border: 1px solid $GrisClaro;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.3;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  &:hover { transform: translateY(-4px); border-color: $Negro; }
+}
+.Carousel-controls { display: flex; justify-content: center; }
+.Carousel-btn {
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 1px solid $Negro;
+  border-radius: 50%;
+  background: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
+  &:hover { background: $Negro; color: $Blanco; }
+}
+.Carousel-dots { display: flex; gap: 0.8rem; }
+.Carousel-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 99px;
+  background: $GrisClaro;
+  cursor: pointer;
+  transition: width 0.3s ease, background 0.3s ease;
+  &.active { width: 3rem; background: $Negro; }
+}
+
+// Education
+.Timeline {
+  border-left: 2px solid $Negro;
+  display: grid;
+  gap: 4rem;
+}
+.Timeline-item {
+  position: relative;
+  padding-left: 3rem;
+  &::before {
+    content: '';
+    position: absolute;
+    left: -0.8rem;
+    top: 0.6rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    background: $Acento;
+    border: 2px solid $Negro;
+  }
+  h3 { font-size: 2.6rem; }
+}
+.Timeline-period { font-size: 1.3rem; font-weight: 600; letter-spacing: 0.06em; color: $Gris; }
+.Timeline-school { font-weight: 600; margin-top: 0.4rem; }
+.Timeline-note { margin-top: 0.6rem; color: $Gris; }
+
+// Contact
+.Contact {
+  display: grid;
+  gap: 2.4rem;
+  p { max-width: 60rem; font-size: 2rem; color: rgba($Blanco, 0.85); }
+}
+.Contact-mail {
+  font: 800 clamp(2.2rem, 5vw, 4.6rem) $FuenteTitulo;
+  word-break: break-all;
+  text-decoration: underline;
+  text-decoration-color: $Acento;
+  text-underline-offset: 0.6rem;
+}
+
+.Section:not(.dark) + .Section:not(.dark) { border-top: 1px solid $Negro; }
+
+// Footer
+.Footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 2.4rem 2rem;
+  background: $Negro;
+  color: rgba($Blanco, 0.6);
+  border-top: 1px solid rgba($Blanco, 0.2);
+  font-size: 1.4rem;
+  a:hover { color: $Blanco; }
+}
+
+// ---------- Scroll reveal (only when JS is available) ----------
+.js .reveal {
+  opacity: 0;
+  transform: translateY(2.4rem);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  &.visible { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .Scroll-hint { opacity: 1; }
+  .Scroll-hint svg { animation: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; }
+}
